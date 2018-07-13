@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+    <Title>Employees</Title>
+    <?php require_once('header.html'); ?>
+</head>
+<body>
+<div class="container h-100">
+
+    <br><h1><center>Employees</center></h1><br>
+
+    <div class="row justify-content-center align-items-center">
+        <form method="POST" action="/Employee/DB_Queries/handle_queries.php">
+            <label class="col-form-label" for="name"><b>Name:</b></label>
+            <input class="form-control" type="text" name="name" id="new-emp"><br>
+            <button class="btn btn-block btn-warning" type="submit">Add Employee</button><br>
+        </form>
+    </div><br><br>
+
+    <ul class="list-group">
+        <?php foreach($allEmployees as $employee): ?>
+            <li class="list-group-item" id="<?php echo $employee['id']?>">
+                <div align="center">
+                    <b style="float: left"><?php echo $employee['id'];?></b>
+                    <input type="button" align="middle" class="btn btn-defualt btn-lg" id="<?php echo "name" . $employee['id']; ?>" value="<? echo $employee['name']; ?>"/>
+                    <button type="submit" style="float: right" class="btn btn-default btn-sm" onclick="employeeListActions.deleteEmployee(<? echo $employee['id']; ?>)"><b>X</b></button>
+                </div><br><br>
+                <div id="new-name-box" align="center">
+                    <label for="new-name"><b>New Name:</b></label>
+                    <input id="new-name<? echo $employee['id'];?>" type="text" name="new-name">
+                    <input type="hidden" name="id" value="<?php echo $employee['id']; ?>">
+                    <input type="button" class="btn btn-warning" value="Update Employee" onclick="employeeListActions.updateEmployee(<? echo $employee['id']; ?>)" />
+                </div><br>
+            </li>
+        <? endforeach; ?>
+    </ul>
+
+</div><br>
+</body>
+</html>
